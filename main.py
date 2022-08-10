@@ -143,15 +143,16 @@ while True:
         old_fruit[0].goto(a, b)
     snake_move()
 
-    # snake and border collision
+    # borderless
 
-    if snake.xcor() > 280 or snake.xcor() < -300 or snake.ycor() > 240 or snake.ycor() < -240:
-        time.sleep(1)
-        screen.clear()
-        screen.bgcolor('turquoise')
-        scoring.goto(0, 0)
-        scoring.write("   GAME OVER \n Your Score is {}".format(score), align="center",
-                      font=("Courier", 30, "bold"))
+    if snake.xcor() > 280:
+        snake.goto(-300, snake.ycor())
+    if snake.xcor() < -300:
+        snake.goto(280, snake.ycor())
+    if snake.ycor() > 240:
+        snake.goto(snake.xcor(), -240)
+    if snake.ycor() < -240:
+        snake.goto(snake.xcor(), 240)
 
     # snake collision
     for food in old_fruit:
@@ -166,4 +167,3 @@ while True:
     time.sleep(delay)
 
 turtle.Terminator()
-
