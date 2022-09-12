@@ -34,7 +34,7 @@ delay = 0.1
 
 # snake
 snake = turtle.Turtle()
-# snake.speed(0)
+#snake.speed(0)
 snake.shape('circle')
 snake.color("black")
 snake.penup()
@@ -43,7 +43,7 @@ snake.direction = 'stop'
 
 # food
 fruit = turtle.Turtle()
-# fruit.speed(0)
+#fruit.speed(0)
 fruit.shape('square')
 fruit.color('red')
 fruit.penup()
@@ -111,7 +111,7 @@ screen.onkeypress(snake_go_right, "Right")
 
 while True:
     screen.update()
-    # snake and fruit collisions
+    # snake and fruit coliisions
     if snake.distance(fruit) < 20:
         x = random.randint(-290, 270)
         y = random.randint(-240, 240)
@@ -121,7 +121,7 @@ while True:
         scoring.write("Score:{}".format(score), align="center", font=("Courier", 24, "bold"))
         delay -= 0.001
 
-        # creating new_ball
+        ## creating new_ball
         new_fruit = turtle.Turtle()
         new_fruit.speed(0)
         new_fruit.shape('square')
@@ -143,27 +143,39 @@ while True:
         old_fruit[0].goto(a, b)
     snake_move()
 
-    # snake and border collision
+    ##snake and border collision
 
-    if snake.xcor() > 280 or snake.xcor() < -300 or snake.ycor() > 240 or snake.ycor() < -240:
+    if snake.xcor() > 280:
+        snake.goto(-300, snake.ycor())
+    if snake.xcor() < -300:
+        snake.goto(280,snake.ycor())
+    if snake.ycor() > 240:
+        snake.goto(snake.xcor(), -240)
+    if snake.ycor() < -240:
+        snake.goto(snake.xcor(), 240)
+    """
         time.sleep(1)
         screen.clear()
         screen.bgcolor('turquoise')
         scoring.goto(0, 0)
-        scoring.write("   GAME OVER \n Your Score is {}".format(score), align="center",
-                      font=("Courier", 30, "bold"))
-
-    # snake collision
+        scoring.write("   GAME OVER \n Your Score is {}".format(score+100), align="center", font=("Courier", 30, "bold"))
+    """
+    ## snake collision
     for food in old_fruit:
         if food.distance(snake) < 20:
             time.sleep(1)
             screen.clear()
             screen.bgcolor('turquoise')
             scoring.goto(0, 0)
-            scoring.write("    GAME OVER \n Your Score is {}".format(score), align="center",
+            scoring.write("    GAME OVER \n Your Score is {}".format(score+100), align="center",
                           font=("Courier", 30, "bold"))
 
     time.sleep(delay)
 
 turtle.Terminator()
+
+
+
+
+
 
